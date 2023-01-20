@@ -15,12 +15,10 @@ export const navBarStyles = {
     icons: {
         backgroundColor: '#101f33',
         color: "#EBEBEB",
-        marginLeft: '20px',
     },
     text: {
         '& span' : {
-            marginLeft: '20px',
-            fontWeight: '60px',
+            fontWeight: '500',
             fontSize: '16px'
         }
     }

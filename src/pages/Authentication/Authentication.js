@@ -1,6 +1,7 @@
 import React from 'react';
 import Grid from '@mui/material/Grid';
 import CommonButton from '../../Components/common/CommonButton/CommonButton';
+import Register from '../Register/Register';
 
 const Authentication = () => {
 
@@ -23,6 +24,7 @@ const Authentication = () => {
         >
           Text
         </CommonButton>
+        <Register/>
     </Grid>
   )
 }
