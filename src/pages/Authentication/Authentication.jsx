@@ -10,7 +10,6 @@ const Authentication = () => {
   const [login, setLogin] = useState("false");
 
   const handlelogin = (value) => {
-    console.log(value)
       setLogin(value)
   }
 

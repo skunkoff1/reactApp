@@ -2,58 +2,59 @@ import React from 'react';
 import { useRef, useState, useEffect, useContext } from 'react';
 import { faCheck, faTimes, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import classes from './login.module.css';
-import AuthContext from '../../context/AuthProvider';
+import classes from '../../Style/form.module.css';
+import AppContext from '../../context/AppProvider';
 
-const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
+
+// eslint-disable-next-line no-useless-escape
+const MAIL_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
 const Login = ({handleLogin}) => {
 
-    const { setAuth } = useContext(AuthContext);
-    const userRef = useRef();
+    const { onUserChange } = useContext(AppContext);
+    const emailRef = useRef();
     const errRef = useRef();
 
-    const [username, setUserName] = useState('');
-    const [validName, setValidName] = useState(false);
-    const [userFocus, setUserFocus] = useState(false);
+    const [email, setEmail] = useState('');
+    const [validEmail, setValidEmail] = useState(false);
+    const [emailFocus, setEmailFocus] = useState(false);
 
-    const [pwd, setPwd] = useState('');
+    const [password, setPwd] = useState('');
     const [validPwd, setValidPwd] = useState(false);
     const [pwdFocus, setPwdFocus] = useState(false);
 
     const [errMsg, setErrMsg] = useState('');
-    // const [success, setSuccess] = useState(false);
     const [msg, setMsg] = useState('');
 
     useEffect(() => {
-      userRef.current.focus();    
+      emailRef.current.focus();    
       return () => {        
       }
     }, [])
     
     useEffect(() => {
-      const result = USER_REGEX.test(username);
-      setValidName(result);
+      const result = MAIL_REGEX.test(email);
+      setValidEmail(result);
       return () => {
       }
-    }, [username])
+    }, [email])
 
     useEffect(() => {
-      const result = PWD_REGEX.test(pwd);
+      const result = PWD_REGEX.test(password);
       setValidPwd(result);
       return () => {
       }
-    }, [pwd])
+    }, [password])
 
     const handleSubmit = async(e) => {
       e.preventDefault();
 
       try {
 
-        const body = {username, pwd};
+        const body = {email, password};
 
-        const request = await fetch("http://localhost:7777/login", {
+        const request = await fetch("/v1/auth/login", {
             method: 'POST',
             headers: {
             'content-type': 'application/json',
@@ -66,17 +67,30 @@ const Login = ({handleLogin}) => {
         console.log(status)
 
         if(status === 200) {
-            console.log(response.token);
-            const token = response.token;
-            setAuth({username, pwd, token})
-            setMsg(response.message);
-            window.location.href = "/"
+            console.log(response);
+            const tokenAccess = response.tokens.access.token;
+            const tokenRefresh = response.tokens.refresh.token;
+            const role = response.user.role;
+            const name = response.user.name;
+            const email = response.user.email;
+            const id = response.user.id;
+            const user = {
+              id: id,
+              name: name,
+              email: email,
+              tokenAccess : tokenAccess,
+              tokenRefresh: tokenRefresh,
+              role: role
+            }
+            onUserChange(user)
+            setMsg("Connection réussie");
+            // window.location.href = "/"
         }
         else {
             setErrMsg(response.message);
         }
       } catch(err) {
-            setErrMsg(err);
+            setErrMsg(err.message);
       }
     }
 
@@ -86,33 +100,31 @@ const Login = ({handleLogin}) => {
         <p className={msg ? classes.success : classes.offscreen} aria-live="assertive">{msg}</p>
         <h1>Connexion</h1>
         <form onSubmit={handleSubmit}>
-          <label htmlFor='username'>
-            Nom d'utilisateur:
-            <span className={validName ? classes.valid : classes.hide}>
+        <label htmlFor='email'>
+            Email:
+            <span className={validEmail ? classes.valid : classes.hide}>
               <FontAwesomeIcon icon={faCheck} />              
             </span>
-            <span className={validName || !username ? classes.hide : classes.invalid}>
+            <span className={validEmail || !email ? classes.hide : classes.invalid}>
               <FontAwesomeIcon icon={faTimes} />              
             </span>
           </label>
           <input 
             type='text'
-            id='username'
-            ref={userRef}
+            id='email'
+            ref={emailRef}
             autoComplete="off"
-            onChange={(e) => setUserName(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
             required
-            aria-describedby='uidnote'
-            aria-invalid={validName ? "false" : "true"}
-            onFocus={() => setUserFocus(true)}
-            onBlur={() => setUserFocus(false)} 
+            aria-describedby='emailnote'
+            aria-invalid={validEmail ? "false" : "true"}
+            onFocus={() => setEmailFocus(true)}
+            onBlur={() => setEmailFocus(false)} 
           />
 
-          <p id="uidnote" className={userFocus && username && !validName ? classes.instructions : classes.offscreen}>
+          <p id="e;qilnote" className={emailFocus && email && !validEmail ? classes.instructions : classes.offscreen}>
             <FontAwesomeIcon icon={faInfoCircle} />
-            De 4 à 24 caractères.<br />
-            Doit commencer par une lettre.<br/>
-            Lettres, chiffres, tirets et underscore autorisés.
+            Entrez un email valide.
           </p>
 
           <label htmlFor='pwd'>
@@ -120,7 +132,7 @@ const Login = ({handleLogin}) => {
             <span className={validPwd ? classes.valid : classes.hide}>
               <FontAwesomeIcon icon={faCheck} />              
             </span>
-            <span className={validPwd || !pwd ? classes.hide : classes.invalid}>
+            <span className={validPwd || !password ? classes.hide : classes.invalid}>
               <FontAwesomeIcon icon={faTimes} />              
             </span>
           </label>
@@ -134,7 +146,7 @@ const Login = ({handleLogin}) => {
             onFocus={() => setPwdFocus(true)}
             onBlur={() => setPwdFocus(false)} 
           />
-          <p id="pwdnote" className={pwdFocus && pwd && !validPwd ? classes.instructions : classes.offscreen}>
+          <p id="pwdnote" className={pwdFocus && password && !validPwd ? classes.instructions : classes.offscreen}>
             <FontAwesomeIcon icon={faInfoCircle} />
             De 8 à 24 caractères.<br />
             Au moins une majuscule, une minuscule, un chiffre et un caractère spécial.<br />
@@ -146,7 +158,7 @@ const Login = ({handleLogin}) => {
             <span aria-label="percent">%</span>
           </p>
 
-          <button disabled={!validName || !validPwd ? true : false}>Se connecter</button>
+          <button disabled={!validEmail || !validPwd ? true : false}>Se connecter</button>
 
         </form>
 

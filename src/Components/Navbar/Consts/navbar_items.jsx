@@ -5,40 +5,39 @@ import SettingsEthernetIcon from '@mui/icons-material/SettingsEthernet';
 import SettingsInputComponentIcon from '@mui/icons-material/SettingsInputComponent';
 import DnsIcon from '@mui/icons-material/Dns';
 
-export const mainNavbarItems = [
-    {
+export const mainNavbarItems = [{
         id: 0,
-        icon: <PeopleIcon />,
+        icon: <PeopleIcon /> ,
         label: 'Authentication',
         route: 'authentication',
     },
     {
         id: 1,
-        icon: <DnsIcon />,
-        label: 'DataBase',
-        route: 'database',
+        icon: <DnsIcon /> ,
+        label: 'Profil',
+        route: 'profil',
     },
     {
         id: 2,
-        icon: <ImageIcon />,
-        label: 'Storage',
-        route: 'storage',
+        icon: <ImageIcon /> ,
+        label: 'Test',
+        route: 'test',
     },
     {
         id: 3,
-        icon: <PublicIcon />,
+        icon: <PublicIcon /> ,
         label: 'Hosting',
         route: 'hosting',
     },
     {
         id: 4,
-        icon: <SettingsEthernetIcon />,
+        icon: <SettingsEthernetIcon /> ,
         label: 'Functions',
         route: 'functions',
     },
     {
         id: 5,
-        icon: <SettingsInputComponentIcon />,
+        icon: <SettingsInputComponentIcon /> ,
         label: 'Machine learning',
         route: 'machine-learning',
     },

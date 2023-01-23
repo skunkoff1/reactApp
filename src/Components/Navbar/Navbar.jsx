@@ -10,10 +10,12 @@ import ListItemText from '@mui/material/ListItemText';
 import { mainNavbarItems } from './Consts/navbar_items';
 import { navBarStyles } from './styles';
 import { useNavigate } from "react-router-dom";
+import AppContext from '../../context/AppProvider';
 
 const Navbar = () => {
     
   const navigate = useNavigate();
+  const { onThemeChange } = React.useContext(AppContext);
 
   return (
     <Drawer
@@ -22,8 +24,21 @@ const Navbar = () => {
         anchor="left"
       >
         <Toolbar sx={{
-          backgroundColor: '#0A1131F',
-        }} />
+          backgroundColor: '#0A1131',
+        }} />        
+        <Divider />  
+        <div className="theme-div">
+          <button 
+            type="button"
+            onClick={() => onThemeChange('light')}>
+              Light
+            </button>
+            <button 
+            type="button"
+            onClick={() => onThemeChange('dark')}>
+              Dark
+            </button>
+        </div>   
         <Divider />
         <List>
           {mainNavbarItems.map((item, index) => (
@@ -44,7 +59,7 @@ const Navbar = () => {
               </ListItemButton>
             </ListItem>
           ))}
-        </List>        
+        </List>      
       </Drawer>
   )
 }
