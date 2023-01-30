@@ -254,19 +254,10 @@ const Register = ({handleLogin}) => {
             Les mots de passes doivent correspondre.
           </p>
 
-          <button disabled={!validName || !validPwd || !validMatch ? true : false}>S'enregistrer</button>
+          <button disabled={!validName || !validPwd || !validMatch ? true : false}>Mettre à jour</button>
 
         </form>
-
-        <p>
-          Déjà enregistré ?<br />
-          <span 
-            className={classes.line} 
-            onClick={() => handleLogin("true")}
-            >
-            Connectez vous !
-          </span>
-        </p>
+        
 
     </section>
   )

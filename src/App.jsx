@@ -2,7 +2,7 @@ import Navbar from './Components/Navbar/Navbar';
 import { Outlet } from "react-router-dom";
 import Grid from '@mui/material/Grid';
 import AppContext from './context/AppProvider'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import classes from '../src/Style/app.module.css'
 
 
@@ -26,6 +26,20 @@ function App() {
       role: null,
     }
   );
+
+  useEffect(() => {
+    const name = localStorage.getItem("userNameReact");
+    const email =localStorage.getItem("userEmailReact");
+    const role =localStorage.getItem("userRoleReact");
+    const tokenAccess = localStorage.getItem("userAccessReact");
+    const tokenRefresh = localStorage.getItem("userRefreshReact");
+    const id = localStorage.getItem("userIdReact");
+    const user = {id, name, email, role, tokenAccess, tokenRefresh};
+    setUser(user);
+    console.log(user)
+    return () => {
+    }
+  }, [])
 
   const [theme, setTheme] = useState('light')
 

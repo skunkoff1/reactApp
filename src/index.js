@@ -10,6 +10,8 @@ import ErrorPage from './Components/errorPage/error-page.jsx';
 import Authentication from './pages/Authentication/Authentication';
 import Profil from './pages/Profil/Profil';
 import Test from './pages/Test/Test.jsx'
+import Discussion from './pages/Discussion/Discussion.jsx'
+import ShowDiscussion from './pages/Discussion/ShowDiscussion.jsx'
 
 
 const router = createBrowserRouter([
@@ -29,7 +31,15 @@ const router = createBrowserRouter([
       {
         path: "test",
         element: <Test /> ,
-    },
+      },
+      {
+        path: "discussion",
+        element: <Discussion /> , 
+      },
+      {
+        path: "discussion/:id",
+        element: <ShowDiscussion /> ,
+      },          
     ],
   }
 ]);

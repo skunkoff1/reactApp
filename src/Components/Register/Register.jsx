@@ -92,11 +92,10 @@ const Register = ({handleLogin}) => {
   
         const response = await request.json();
         const status = await request.status;
-        console.log(status)
   
         if(status === 201) {
           console.log(response);
-          setMsg("Enregistrement effectué.<br>Vous allez être redirigé vers la page de connexion.");
+          setMsg("Enregistrement effectué. Vous allez être redirigé vers la page de connexion.");
           setTimeout(() => {
             handleLogin("true");            
           }, 2000);

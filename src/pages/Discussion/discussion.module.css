@@ -1,0 +1,23 @@
+.container {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+}
+
+.left {
+    margin-left: 240px;
+    width: 70%;
+    padding: 20px 5px;
+    border-right: 1px solid black;
+}
+
+.right {
+    width: 25%;
+    padding: 20px 5px;
+    background-color: rgba(0, 0, 0, 0.123);
+}
+
+.link:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}

@@ -22,14 +22,6 @@ const Authentication = () => {
       alignItems="center"
       login={login}
     >
-        {/* Authentication page
-        <CommonButton
-          size="large"
-          variant="contained"
-          sx={buttonStyles}
-        >
-          Text
-        </CommonButton> */}
         {login==="true" ? 
           <Login handleLogin={handlelogin}/> 
           :  <Register handleLogin={handlelogin}/> }

@@ -67,7 +67,6 @@ const Login = ({handleLogin}) => {
         console.log(status)
 
         if(status === 200) {
-            console.log(response);
             const tokenAccess = response.tokens.access.token;
             const tokenRefresh = response.tokens.refresh.token;
             const role = response.user.role;
@@ -84,7 +83,14 @@ const Login = ({handleLogin}) => {
             }
             onUserChange(user)
             setMsg("Connection réussie");
-            // window.location.href = "/"
+            window.location.href = "/discussion"
+            localStorage.setItem("userNameReact", user.name);
+            localStorage.setItem("userEmailReact", user.email);
+            localStorage.setItem("userRoleReact", user.role);
+            localStorage.setItem("userAccessReact", user.tokenAccess);
+            localStorage.setItem("userRefreshReact", user.tokenRefresh);
+            localStorage.setItem("userIdReact", user.id);
+            console.log(user)
         }
         else {
             setErrMsg(response.message);

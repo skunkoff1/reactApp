@@ -1,0 +1,132 @@
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    flex-grow: 1;
+    padding: 1rem;
+}
+
+a, a:visited {
+    color: #fff;
+}
+
+input[type="text"],
+input[type="password"],
+button,
+textarea {
+  font-family: 'Nunito', sans-serif;
+  font-size: 22px;
+  padding: 0.25rem;
+  border-radius: 0.5rem;
+}
+
+.form-container {
+    min-width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 1rem;
+    background-color: blue;
+}
+
+.light {    
+    background-color: rgba(82, 122, 207, 0.4);
+    color: black;
+}
+
+.dark {
+    background-color: rgba(19, 25, 37, 0.4);
+    color: white;
+}
+
+label,
+button {
+  margin-top: 1rem;
+}
+
+button {
+  padding: 0.5rem;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+.light ~ .instructions {
+    background: #000;
+    color: #fff;
+}
+
+.instructions {
+    font-size: 0.75rem;
+    border-radius: 0.5rem;
+    padding: 0.25rem;
+    position: relative;
+    bottom: -10px;
+}
+
+.instructions > svg {
+    margin-right: 0.25rem;
+}
+
+.offscreen {
+    position: absolute;
+    left: -9999px;
+}
+
+.hide {
+    display: none;
+}
+
+.valid {
+    color: limegreen;
+    margin-left: 0.25rem;
+}
+
+.invalid {
+    color: red;
+    margin-left: 0.25rem;
+}
+
+.errMsg {
+    background-color: lightpink;
+    color: firebrick;
+    font-weight: bold;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.success {
+    background-color: limegreen;
+    color: white;
+    font-weight: bold;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.line {
+    display: inline-block;
+    text-decoration: underline;
+}
+
+.line:hover {
+    cursor: pointer;
+}
+
+
+.user {
+    background-color: red;
+}
+
+.discussions {
+    padding: 20px;
+    border: 1px solid black;
+    border-radius: 10px;
+    transition: 0.2s;
+}
+
+.discussions:hover {
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.158);
+}

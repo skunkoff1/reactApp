@@ -2,8 +2,8 @@ import { createContext } from "react";
 
 const AppContext = createContext({
     user: {
-      id: null,
-      name: null,
+      id:  null,
+      name:  null,
       email: null,
       tokenAccess: null,
       tokenRefresh: null,
